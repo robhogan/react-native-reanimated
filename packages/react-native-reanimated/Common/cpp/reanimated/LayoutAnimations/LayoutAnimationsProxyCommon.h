@@ -66,7 +66,6 @@ struct LayoutAnimationsProxyDependencies {
   std::shared_ptr<UIScheduler> uiScheduler;
   std::shared_ptr<facebook::react::UIManager> uiManager;
   std::function<void(SurfaceId)> requestLayoutAnimationFlush;
-  std::function<bool(Tag)> hasSynchronousProps;
 #ifdef ANDROID
   PreserveMountedTagsFunction filterUnmountedTagsFunction;
   std::shared_ptr<facebook::react::CallInvoker> jsInvoker;
@@ -106,6 +105,9 @@ class LayoutAnimationsProxyCommon : public facebook::react::MountingOverrideDele
   virtual void shadowTreeWillCommit(bool /*isSurfaceRemoval*/) {}
   virtual void surfaceDidUnmount();
   virtual void applySynchronousProps(const UpdatesBatch &) const {}
+#ifndef NDEBUG
+  virtual void recordSkippedSynchronousProps(const UpdatesBatch &) const {}
+#endif
   ~LayoutAnimationsProxyCommon() override = default;
 
   void flushLayoutAnimationOperations() const;

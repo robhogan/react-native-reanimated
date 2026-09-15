@@ -49,7 +49,6 @@ class UpdatesRegistryManager {
   void handleNodeRemovals(const RootShadowNode &rootShadowNode);
   PropsMap collectProps();
   void appendRegistryProps(PropsMap &propsMap);
-  bool hasSynchronousProps(Tag tag);
 
 #ifdef ANDROID
   bool hasPropsToRevert();
